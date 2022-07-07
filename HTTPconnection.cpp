@@ -24,8 +24,8 @@ void HTTPconnection::initHTTPConn(int fd, const sockaddr_in& addr) {
     userCount++;
     addr_ = addr;
     fd_ = fd;
-    writeBuffer_.initPtr(); //写缓冲区初始化
-    readBuffer_.initPtr();  //读缓冲区初始化
+    writeBuffer_.initPtr(); 
+    readBuffer_.initPtr(); 
     isClose_ = false;
 	LOG_INFO("Client[%d](%s:%d) in, userCount:%d", fd_, getIP(), getPort(), (int)userCount);
 }
