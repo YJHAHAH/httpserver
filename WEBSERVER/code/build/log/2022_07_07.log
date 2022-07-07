@@ -1,0 +1,19 @@
+2022-07-07 10:31:30.092162 [info] : ========== Server init ==========
+2022-07-07 10:31:30.092190 [info] : Port:1316, OpenLinger: false
+2022-07-07 10:31:30.092197 [info] : Listen Mode: ET, OpenConn Mode: ET
+2022-07-07 10:31:30.092201 [info] : LogSys level: 1
+2022-07-07 10:31:30.092204 [info] : srcDir: /home/yjh/codes/WEBSERVER/code/build/resources/
+2022-07-07 10:31:30.092385 [info] : SqlConnPool num: 12, ThreadPool num: 6
+2022-07-07 10:31:30.092441 [info] : ========== Server start ==========
+2022-07-07 10:31:43.567696 [info] : Client[18](192.168.206.1:13109) in, userCount:1
+2022-07-07 10:31:43.567840 [info] : Client[18] in!
+2022-07-07 10:31:43.567916 [info] : Client[19](192.168.206.1:13621) in, userCount:2
+2022-07-07 10:31:43.567945 [info] : Client[19] in!
+2022-07-07 10:31:43.573130 [info] : Verify name:yujinghui++ pwd:ord=yujingh
+2022-07-07 10:31:43.585171 [info] : Client[18] quit!
+2022-07-07 10:31:43.585542 [info] : Client[18](192.168.206.1:13109) quit, UserCount:1
+2022-07-07 10:31:51.496469 [info] : Client[18](192.168.206.1:15669) in, userCount:2
+2022-07-07 10:31:51.496706 [info] : Client[18] in!
+2022-07-07 10:32:51.512108 [info] : Client[18] quit!
+2022-07-07 10:32:51.512400 [info] : Client[18](192.168.206.1:15669) quit, UserCount:1
+2022-07-07 10:33:31.552179 [info] : Client[19] quit!
