@@ -148,15 +148,6 @@ void HTTPresponse::addResponseContent_(Buffer& buff) {
     }
 
     // 将文件映射到内存提高文件的访问速度 
-    // MAP_PRIVATE 建立一个写入时拷贝的私有映射
-	//mmap从函数名就可以看出来这是memory map, 即地址的映射, 是一种内存映射文件的方法
-	//参数   addr 指定映射的超始地址，通常为NULL,由系统指定
-	//  length 映射到内存的文件长度
-	//	prot  映射区的保护方式   读 PROT_READ     写 PROT_WRITE     读写 PROT_READ | PROT_WRITE
-	//	flags 映射区的特性   MAP_SHARED  写入映射区的数据会复制回文件 且允许其它映射该文件的进程共享
-	//	MAP_PRIVATE  对映射区的写入操作会产生一个映射区的复制(copy - on - write), 对此区域所做的修改不会写回原文件
-	//	fd     由open 返回的文件描述符，代表要映射的文件
-	//	offset 以文件开始处的偏移量，必须是4K整数倍，通常为0，表示从文件头开始映射
 	//建立私有映射 不影响原文件
 	//成功返回地址指针  失败返回-1
     int* mmRet = (int*)mmap(0, mmFileStat_.st_size, PROT_READ, MAP_PRIVATE, srcFd, 0);

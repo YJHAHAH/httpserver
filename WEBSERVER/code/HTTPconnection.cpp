@@ -77,8 +77,6 @@ ssize_t HTTPconnection::writeBuffer(int* saveErrno) {
             break;
         }
 		//writev多次调用，并不会改变参数iovec*的内容，长度也不会改变，所以在while循环写入时可能要调整指针位置；
-		//写入时首先根据第三个参数iovcnt来遍历每个结构体，然后对读取结构体中以iov_base开始的iovlen个长度，
-		//如果iovlen = 0的话，是不会读取的
         if(iov_[0].iov_len + iov_[1].iov_len  == 0) { break; } /* 传输结束 */
         else if(static_cast<size_t>(len) > iov_[0].iov_len) {//iov[0]传输结束
             iov_[1].iov_base = (uint8_t*) iov_[1].iov_base + (len - iov_[0].iov_len);//调整iov[1]指针
