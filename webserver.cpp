@@ -209,14 +209,6 @@ void WebServer::onRead_(HTTPconnection* client)
     }
     onProcess_(client);//处理请求 准备好响应头 文件 
 }
-//1. 对于读操作 epollin
-//（1）当缓冲区由不可读变为可读的时候，即缓冲区由空变为不空的时候。
-//（2）当有新数据到达时，即缓冲区中的待读数据变多的时候。
-//（3）当缓冲区有数据可读，且应用进程对相应的描述符进行EPOLL_CTL_MOD 修改EPOLLIN事件时。
-//2. 对于写操作 epollout
-//（1）当缓冲区由不可写变为可写时。
-//（2）当有旧数据被发送走，即缓冲区中的内容变少的时候。
-//（3）当缓冲区有空间可写，且应用进程对相应的描述符进行EPOLL_CTL_MOD 修改EPOLLOUT事件时
 
 void WebServer::onProcess_(HTTPconnection* client) //传输文件
 {
@@ -267,16 +259,6 @@ bool WebServer::initSocket_() {//socket初始化
         optLinger.l_onoff = 1;
         optLinger.l_linger = 1;
     }
-	//三种断开方式：
-	//1. l_onoff = 0; l_linger忽略
-	//	close()立刻返回，底层会将未发送完的数据发送完成后再释放资源，即优雅退出。
-	//2. l_onoff != 0; l_linger = 0;
-	//close()立刻返回，但不会发送未发送完成的数据，而是通过一个REST包强制的关闭socket描述符，即强制退出。
-	//3. l_onoff != 0; l_linger > 0;
-	//close()不会立刻返回，内核会延迟一段时间，这个时间就由l_linger的值来决定。如果超时时间到达之前，
-	//发送完未发送的数据(包括FIN包)并得到另一端的确认，close()会返回正确，socket描述符优雅性退出。
-	//否则，close()会直接返回错误值，未发送数据丢失，socket描述符被强制性退出。需要注意的时，
-	//如果socket描述符被设置为非堵塞型，则close()会直接返回值
     listenFd_ = socket(AF_INET, SOCK_STREAM, 0);//设置socket  IPV4 TCP
     if(listenFd_ < 0) {
 		LOG_ERROR("Create socket error!", port_);
@@ -293,10 +275,6 @@ bool WebServer::initSocket_() {//socket初始化
     }
 
     int optval = 1;
-    /* 端口复用 */
-    /* 只有最后一个套接字会正常接收数据。 */
-	//第二个参数level是被设置的选项的级别，如果想要在套接字级别上设置选项，就必须把level设置为 SOL_SOCKET
-	//SO_REUSEADDR SO_REUSEADDR，打开或关闭地址复用功能
     ret = setsockopt(listenFd_, SOL_SOCKET, SO_REUSEADDR, (const void*)&optval, sizeof(int));
     if(ret == -1) {
 		LOG_ERROR("set socket setsockopt error !");

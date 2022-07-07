@@ -4,8 +4,6 @@
 // @Date          : 2022-06-21
 
 #include "timer.h"
-//堆（也叫优先队列），是一棵完全二叉树，它的特点是父节点的值大于（小于）两个子节点的值（分别称为大顶堆和小顶堆）。
-//它常用于管理算法执行过程中的信息，应用场景包括堆排序，优先队列等
 void TimerManager::shiftup_(size_t i) {
     assert(i >= 0 && i < heap_.size());
     size_t j = (i - 1) / 2;//父节点
@@ -23,20 +21,6 @@ void TimerManager::swapNode_(size_t i, size_t j) {
      swap(heap_[i], heap_[j]);//交换定时器结点
     ref_[heap_[i].id] = i;//更新fd映射
     ref_[heap_[j].id] = j;
-	//   vector<TimerNode>heap_;
-	// unordered_map<int, size_t>ref_;//映射一个fd对应的定时器在heap_中的位置
-	//class TimerNode {
-	//public:
-	//	int id;             //用来标记定时器
-	//	TimeStamp expire;   //设置过期时间
-	//	TimeoutCallBack cb; //设置一个回调函数用来方便删除定时器时将对应的HTTP连接关闭
-
-	//	//需要的功能可以自己设定
-	//	bool operator<(const TimerNode& t) //重载<  按超时时间比较
-	//	{
-	//		return expire < t.expire;
-	//	}
-	//};
 } 
 
 bool TimerManager::shiftdown_(size_t index, size_t n) //向下调整
